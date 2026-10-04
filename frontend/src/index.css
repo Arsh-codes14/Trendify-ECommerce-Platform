@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply font-sans antialiased text-ink bg-cream;
+        /* Tilted decorations may poke past the edge; never allow sideways scrolling */
+        overflow-x: clip;
+    }
+
+    h1, h2, h3 {
+        @apply font-display;
+    }
+
+    ::selection {
+        @apply text-ink bg-bubble-light;
+    }
+}
+
+/* INFO: "Candy Pop" building blocks: plum outlines + hard offset shadows */
+@layer components {
+    /* Same horizontal padding for header, pages and footer */
+    .page-x {
+        @apply px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw];
+    }
+
+    /* Buttons squish down into their shadow when pressed */
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 px-7 py-3 font-display font-semibold text-ink bg-bubble border-2 border-ink rounded-full shadow-pop transition-all
+               hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-pop-lg
+               active:translate-x-1 active:translate-y-1 active:shadow-none
+               disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-pop;
+    }
+
+    .btn-outline {
+        @apply inline-flex items-center justify-center gap-2 px-7 py-3 font-display font-semibold bg-white border-2 border-ink rounded-full shadow-pop transition-all text-ink
+               hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-pop-lg hover:bg-lemon
+               active:translate-x-1 active:translate-y-1 active:shadow-none;
+    }
+
+    .input {
+        @apply w-full px-4 py-3 text-sm bg-white border-2 border-ink rounded-2xl outline-none transition placeholder:text-ink/40 focus:ring-4 focus:ring-bubble/40;
+    }
+
+    .card {
+        @apply bg-white border-2 border-ink rounded-3xl shadow-pop;
+    }
+
+    /* Small tilted label, e.g. "Bestseller" */
+    .sticker {
+        @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-bold tracking-wide uppercase border-2 rounded-full border-ink font-display;
+    }
+
+    .icon-btn {
+        @apply relative flex items-center justify-center w-10 h-10 transition bg-white border-2 rounded-full border-ink text-ink hover:bg-lemon hover:-translate-y-0.5;
+    }
+}
+
+/* Hide scrollbars on horizontal thumbnail strips */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    scrollbar-width: none;
+}
+
+/* Toast notifications as little stickers */
+.Toastify__toast {
+    @apply font-sans font-semibold text-ink bg-white border-2 border-ink rounded-2xl shadow-pop;
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
